@@ -1,18 +1,18 @@
 <ruta4>
     <nombre>
-        ruta_central2
+        ruta_central2@#.
     </nombre>
     <peso>2.5</peso>
     <inicio>
-        estacioNzona1
-    </inicio>
+        estacioNzona1@#_
+    </inic4io>
     <fin>
-        estacionZonA6
+        e@stacionZonA6
     </fin>
 </ruta>
 
 <estacIon>
-    <color>#AF5B1A</color>
+    <color>#AF5B1@A</color>
     <nombre>estacionzona4</nombre>
     <estado>cerrada</estado>
 </estacion>@

@@ -26,36 +26,61 @@ lexema2 = ""
 caractemp = ""
 estacionnombre = ""
 rutanombre = ""
+valor = 0
 #hacer metodo validar el lexema y meterlos a los arreglos y usar en estancionnombre y rutanombre
 def afd2(): #meter en un for
-    global lexema,estado2,caractemp,rutanombre,estacionnombre #el lexema puede variar
+    global lexema2,estado2,caractemp,rutanombre,estacionnombre #el lexema puede variar
+    simbst1 = "@#_"
+    num = r"[0-9]"
     for x in range(2):
         if estado2 == 0:
-            if lexema.lower() == "inicio" or lexema.lower() == "fin" or lexema.lower() == "ruta" or lexema.lower() == "estacion":#estacionnombre usar arreglo
-                estado2 = 1
-            elif lexema.lower() == "peso":
+            print("est0")
+            print("el lex 2", lexema2)
+            if lexema2.lower() == "inicio" or lexema2.lower() == "fin" or valor == 2:#estacionnombre usar arreglo
+                if lexema2.lower() == "color":
+                    estado2 = 4
+                else: 
+                    estado2 = 1
+            elif lexema2.lower() == "peso":
                 estado2 = 2
-            elif lexema.lower() == "nombre": #rutanombre hay que usar un arreglo
+            elif valor == 1: #rutanombre hay que usar un arreglo
                 estado2 = 3
-            elif lexema.lower() == "color":
+            elif lexema2.lower() == "color":
                 estado2 = 4
         elif estado2 == 1:
-            print("acepta color o fin o estnom xd ", caractemp)
+            print("st1")  
+            if re.search(num,caractemp):
+
+                print(" fin ini o estnom xd ", caractemp)
+            else:
+                print("et nel ", caractemp)
             estado2 = 0
         elif estado2 == 2:
-            print("enteros y decimales", caractemp)
+            print("st2")
+            if re.search(num,caractemp) or caractemp == ".":
+                print("enteros y decimales", caractemp)
+            else:
+                print("no pes ", caractemp)
             estado2 = 0
         elif estado2 == 3:
-            print("ruta nombre ", caractemp)
+            print("st3")
+            if (simbst1.find(caractemp) != -1) or re.search(num,caractemp) :    
+                print("rutnomb ", caractemp)
+            else:
+                print("et nel ", caractemp)
             estado2 = 0
         elif estado2 == 4:
-            print("exa ", caractemp)
+            print("st4")
+            if re.search(num,caractemp) or caractemp == "#":
+                print("exa ", caractemp)
+            else: 
+                print("et nel ex ", caractemp)
             estado2 = 0
         else:
             print("no se afd2")
 
 def palabra_reservada():
-    global lexema,lexema2
+    global lexema,lexema2,rutanombre,estacionnombre,valor
     for x in range(0,len(p_reserv)): 
         if lexema.lower() == p_reserv[x]:
             #hay que ver si meter otro if para validar que nombre viene, si es de la estacion, de la rutoa o del mapa
@@ -67,6 +92,10 @@ def palabra_reservada():
             else:
                 print("lexema ",lexema, " encontrado")
                 #que afd2 se meta
+                if lexema.lower()=="ruta":
+                    valor = 1
+                elif lexema.lower() == "estacion":
+                    valor = 2
                 lexema2 = lexema
                 lexema=""
         else:
@@ -143,14 +172,10 @@ def afd(caract):
             #print(lexema)  
         else:
             caractemp = caract
-            afd2()
-            print("no st5 ",caract," fila ",cont_fil, " columna ",cont_col)        
-        #validar si se encuentra con lo que viene dentro de las etiquetas se puede hacer en este else
-        #ya sea hacer un mento y ahi validar que es lo que viene y mandar el error desde ese metodo
+            afd2()           
     else:
         print("no se que px")
-        
-        
+       
 
 def readCaractAfd(cadena):   
     global cont_col
