@@ -1,0 +1,18 @@
+<ruta4>
+    <nombre>
+        ruta_central2
+    </nombre>
+    <peso>2.5</peso>
+    <inicio>
+        estacioNzona1
+    </inicio>
+    <fin>
+        estacionZonA6
+    </fin>
+</ruta>
+
+<estacIon>
+    <color>#AF5B1A</color>
+    <nombre>estacionzona4</nombre>
+    <estado>cerrada</estado>
+</estacion>@

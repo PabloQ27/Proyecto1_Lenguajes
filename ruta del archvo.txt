@@ -1,1 +1,2 @@
-C:\Users\Eric\Desktop\Semestre\Lenguajes\Proyecto1_Lenguajes\Ejemplo_proyecto.txt
+C:\Users\Eric\Desktop\Semestre\Lenguajes\Proyecto1LFyP\Proyecto1_Lenguajes\Ejemplo_proyecto.txt
+C:\Users\Eric\Desktop\Semestre\Lenguajes\Proyecto1LFyP\Proyecto1_Lenguajes\preba2.txt
