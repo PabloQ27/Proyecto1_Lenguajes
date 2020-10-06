@@ -27,9 +27,15 @@ caractemp = ""
 estacionnombre = ""
 rutanombre = ""
 valor = 0
+contenido = ""
+list_error = []
+token = []
+listaRuta = []
+listaEstacion = []
+
 #hacer metodo validar el lexema y meterlos a los arreglos y usar en estancionnombre y rutanombre
 def afd2(): #meter en un for
-    global lexema2,estado2,caractemp,rutanombre,estacionnombre #el lexema puede variar
+    global lexema2,estado2,caractemp,rutanombre,estacionnombre,contenido #el lexema puede variar
     simbst1 = "@#_"
     num = r"[0-9]"
     for x in range(2):
@@ -50,31 +56,46 @@ def afd2(): #meter en un for
         elif estado2 == 1:
             print("st1")  
             if re.search(num,caractemp):
-
+                contenido += caractemp
                 print(" fin ini o estnom xd ", caractemp)
             else:
                 print("et nel ", caractemp)
+                list_error.append(caractemp)
+                list_error.append(cont_fil)
+                list_error.append(cont_col)
             estado2 = 0
         elif estado2 == 2:
             print("st2")
             if re.search(num,caractemp) or caractemp == ".":
+                contenido += caractemp
                 print("enteros y decimales", caractemp)
             else:
                 print("no pes ", caractemp)
+                list_error.append(caractemp)
+                list_error.append(cont_fil)
+                list_error.append(cont_col)
             estado2 = 0
         elif estado2 == 3:
             print("st3")
-            if (simbst1.find(caractemp) != -1) or re.search(num,caractemp) :    
+            if (simbst1.find(caractemp) != -1) or re.search(num,caractemp) :   
+                contenido += caractemp 
                 print("rutnomb ", caractemp)
             else:
                 print("et nel ", caractemp)
+                list_error.append(caractemp)
+                list_error.append(cont_fil)
+                list_error.append(cont_col)
             estado2 = 0
         elif estado2 == 4:
             print("st4")
             if re.search(num,caractemp) or caractemp == "#":
+                contenido += caractemp
                 print("exa ", caractemp)
             else: 
                 print("et nel ex ", caractemp)
+                list_error.append(caractemp)
+                list_error.append(cont_fil)
+                list_error.append(cont_col)
             estado2 = 0
         else:
             print("no se afd2")
@@ -91,10 +112,20 @@ def palabra_reservada():
                 #que afd2 se salgo o cambie el estado con un numero
             else:
                 print("lexema ",lexema, " encontrado")
-                #que afd2 se meta
+                #aqui se vaq todo pa la matriz
                 if lexema.lower()=="ruta":
+                    """
+                    if valor == 1: #esto servira para el metodo que lea de la lista
+                        valor = 0
+                    else:
+                    """    
                     valor = 1
                 elif lexema.lower() == "estacion":
+                    """
+                    if valor == 2:
+                        valor = 0
+                    else:
+                    """
                     valor = 2
                 lexema2 = lexema
                 lexema=""
@@ -102,9 +133,8 @@ def palabra_reservada():
             pass
             #print("lex inc o no", end = "")
 
-
 def afd(caract):
-    global estado,lexema, cont_col,cont_fil,caractemp
+    global estado,lexema, cont_col,cont_fil,caractemp,contenido,list_error
     abc = r"[A-Za-z]"
     simb ="@#_"
     if estado == 0:
@@ -113,6 +143,9 @@ def afd(caract):
             estado = 2
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            list_error.append(caract)
+            list_error.append(cont_fil)
+            list_error.append(cont_col)
             estado = 1
     elif estado == 1:
        # print("estado 1")
@@ -122,6 +155,9 @@ def afd(caract):
             estado = 5
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            list_error.append(caract)
+            list_error.append(cont_fil)
+            list_error.append(cont_col)
             estado = 1
     elif estado == 2:
         #print("estado 02")
@@ -131,6 +167,8 @@ def afd(caract):
             palabra_reservada()
             estado = 2
         elif caract == "/":
+            print("contenio es ", contenido) #para agregar hay que validar que no este vacio
+            contenido = ""
             estado = 4
         elif caract == ">":
             estado = 5
@@ -138,6 +176,9 @@ def afd(caract):
             estado = 2
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            list_error.append(caract)
+            list_error.append(cont_fil)
+            list_error.append(cont_col)
             estado = 3
     elif estado == 3:
        # print("estado 3")
@@ -152,6 +193,9 @@ def afd(caract):
             estado = 4
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            list_error.append(caract)
+            list_error.append(cont_fil)
+            list_error.append(cont_col)
             estado = 3
     elif estado == 4:
        # print("estado 4")
@@ -162,13 +206,17 @@ def afd(caract):
             estado =2
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            list_error.append(caract)
+            list_error.append(cont_fil)
+            list_error.append(cont_col)
             estado = 3
     elif estado == 5:  
         #print("estado 5")     
         if caract == "<":
             estado =2      
         elif re.search(abc,caract):#agregar otro elif para cuando sea puntos y numeros y tambiar ver si vienen algo fuera de las etiquetas
-            print ("almacena ", caract)     
+            print ("almacena ", caract)  
+            contenido += caract   
             #print(lexema)  
         else:
             caractemp = caract
@@ -176,7 +224,6 @@ def afd(caract):
     else:
         print("no se que px")
        
-
 def readCaractAfd(cadena):   
     global cont_col
     for x in range(0,len(cadena)):
@@ -227,7 +274,16 @@ def menu():
             print("Número inválido, vuelva a intentar.")
             opc = input()
 
+def listaerrores():
+    cont = 0
+    for i in range(0,len(list_error), 3):
+        cont += 1
+        print(cont,"  ",list_error[i], " fila: ",list_error[i+1], " columna: ", list_error[i+2])
+
 validar_arch()
+listaerrores()
+
+
 
 """
 i=0
