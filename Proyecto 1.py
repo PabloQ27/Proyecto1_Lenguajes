@@ -4,8 +4,9 @@ import re
 from graphviz import Digraph
 import csv
 from reportlab.pdfgen import canvas
-
-
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Table
 
 
 
@@ -302,24 +303,28 @@ def menu():
 
 def listaerrores():
     cont = 0     
-    repo1 = open("Reporte_1","w")
-    repo1c = csv.writer(repo1)
-    fila=["No.   Error    Fila    Columna"]
-    repo1c.writerow(fila)
+    fileName2 = "Reporte_1.pdf"
+    pdf = SimpleDocTemplate(
+    fileName2,
+    pagesize=letter
+    )
+    elems = []
+    data = []
+    fila=["No.","Error","Fila","Columna"]
+    data.append(fila) 
     for i in range(0,len(list_error), 3):
         cont += 1
-        fila =[str(cont)+"       "+str(list_error[i])+"        "+str(list_error[i+1])+"       "+str(list_error[i+2])]
-        repo1c.writerow(fila)
+        fila =[str(cont),str(list_error[i]),str(list_error[i+1]),str(list_error[i+2])]
+        data.append(fila)
+        table = Table(data)
         #print(cont,"  ",list_error[i], " fila: ",list_error[i+1], " columna: ", list_error[i+2])
-    repo1.close()
+    elems.append(table)   
+    pdf.build(elems)
   
 
 def listatoken():
-    
     cont = 0
-    fileName = "Reporte_2.pdf"
-    from reportlab.platypus import SimpleDocTemplate
-    from reportlab.lib.pagesizes import letter
+    fileName = "Reporte_2.pdf" 
     pdf = SimpleDocTemplate(
     fileName,
     pagesize=letter
@@ -327,10 +332,8 @@ def listatoken():
     elems = []
     data = []
     fila=["No.","Token","Fila","Columna"]
-    data.append(fila)
-    from reportlab.platypus import Table
-    #table = Table(data)
-    
+    data.append(fila)   
+    #table = Table(data) 
     for i in range(0,len(list_token), 3):
         cont += 1
         fila =[str(cont),str(list_token[i]),str(list_token[i+1]),str(list_token[i+2])]
@@ -340,9 +343,38 @@ def listatoken():
     
     elems.append(table)   
     pdf.build(elems)
+
+def separalista():
+    # 0 nombre del mapa 1 es ruta y 2 es estacion
+    num = 0
+    for i in range(0,len(list_token),3):
+        if str(list_token[i]).lower() == "ruta":
+            if num != 1:
+                num = 1
+            else:
+                num = 0
+            listaRuta.append(list_token[i])
+        elif num == 1:
+            listaRuta.append(list_token[i])
+        elif str(list_token[i]).lower() == "estacion":
+            if num != 2:
+                num = 2
+            else:
+                num = 0
+            listaEstacion.append(list_token[i])
+        elif num == 2:
+            listaEstacion.append(list_token[i])
+        else:
+            print("psible mapname", list_token[i])
+    for i in range(0,len(listaRuta)):
+        print(listaRuta[i])
+    for i in range(0,len(listaEstacion)):
+        print(listaEstacion[i])
+
 validar_arch()
 listaerrores()
 listatoken()
+separalista()
 
 
 
