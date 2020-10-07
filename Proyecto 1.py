@@ -1,6 +1,11 @@
 from Clase2 import clase
 import os.path
 import re
+from graphviz import Digraph
+import csv
+from reportlab.pdfgen import canvas
+
+
 
 
 
@@ -29,7 +34,9 @@ rutanombre = ""
 valor = 0
 contenido = ""
 list_error = []
-token = []
+list_token = []
+cont_col2 = 0
+val = 0
 listaRuta = []
 listaEstacion = []
 
@@ -101,18 +108,23 @@ def afd2(): #meter en un for
             print("no se afd2")
 
 def palabra_reservada():
-    global lexema,lexema2,rutanombre,estacionnombre,valor
+    global lexema,lexema2,rutanombre,estacionnombre,valor,list_token,cont_col,cont_fil
     for x in range(0,len(p_reserv)): 
         if lexema.lower() == p_reserv[x]:
             #hay que ver si meter otro if para validar que nombre viene, si es de la estacion, de la rutoa o del mapa
             if lexema.lower() == lexema2:
                 print("ya estaba ", lexema2)
+                list_token.append(lexema)
+                list_token.append(cont_fil)
+                list_token.append(cont_col)
                 lexema2 = ""
                 lexema = ""
                 #que afd2 se salgo o cambie el estado con un numero
             else:
                 print("lexema ",lexema, " encontrado")
-                #aqui se vaq todo pa la matriz
+                list_token.append(lexema)
+                list_token.append(cont_fil)
+                list_token.append(cont_col)
                 if lexema.lower()=="ruta":
                     """
                     if valor == 1: #esto servira para el metodo que lea de la lista
@@ -134,12 +146,14 @@ def palabra_reservada():
             #print("lex inc o no", end = "")
 
 def afd(caract):
-    global estado,lexema, cont_col,cont_fil,caractemp,contenido,list_error
+    global estado,lexema, cont_col,cont_fil,caractemp,contenido,list_error,cont_col2
+    cont_col2 +=1
     abc = r"[A-Za-z]"
     simb ="@#_"
     if estado == 0:
         #print("estado 0")
         if caract == "<":
+            
             estado = 2
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
@@ -150,8 +164,10 @@ def afd(caract):
     elif estado == 1:
        # print("estado 1")
         if caract == "<":
+            val = 1
             estado = 2
         elif caract == ">":
+            val= 1
             estado = 5
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
@@ -167,12 +183,21 @@ def afd(caract):
             palabra_reservada()
             estado = 2
         elif caract == "/":
+            val = 1
             print("contenio es ", contenido) #para agregar hay que validar que no este vacio
+            if len(contenido) == 0:
+                print("ta vacio contenido")
+            else:
+                list_token.append(contenido)
+                list_token.append(cont_fil)
+                list_token.append(cont_col)
             contenido = ""
             estado = 4
         elif caract == ">":
+            val = 1
             estado = 5
         elif caract == "<":
+            val = 1
             estado = 2
         else:
             print("no ",caract," fila ",cont_fil, " columna ",cont_col)
@@ -274,14 +299,50 @@ def menu():
             print("Número inválido, vuelva a intentar.")
             opc = input()
 
+
 def listaerrores():
-    cont = 0
+    cont = 0     
+    repo1 = open("Reporte_1","w")
+    repo1c = csv.writer(repo1)
+    fila=["No.   Error    Fila    Columna"]
+    repo1c.writerow(fila)
     for i in range(0,len(list_error), 3):
         cont += 1
-        print(cont,"  ",list_error[i], " fila: ",list_error[i+1], " columna: ", list_error[i+2])
+        fila =[str(cont)+"       "+str(list_error[i])+"        "+str(list_error[i+1])+"       "+str(list_error[i+2])]
+        repo1c.writerow(fila)
+        #print(cont,"  ",list_error[i], " fila: ",list_error[i+1], " columna: ", list_error[i+2])
+    repo1.close()
+  
 
+def listatoken():
+    
+    cont = 0
+    fileName = "Reporte_2.pdf"
+    from reportlab.platypus import SimpleDocTemplate
+    from reportlab.lib.pagesizes import letter
+    pdf = SimpleDocTemplate(
+    fileName,
+    pagesize=letter
+    )
+    elems = []
+    data = []
+    fila=["No.","Token","Fila","Columna"]
+    data.append(fila)
+    from reportlab.platypus import Table
+    #table = Table(data)
+    
+    for i in range(0,len(list_token), 3):
+        cont += 1
+        fila =[str(cont),str(list_token[i]),str(list_token[i+1]),str(list_token[i+2])]
+        data.append(fila)
+        table = Table(data)
+        #print(cont,"  ",list_token[i], " fila: ",list_token[i+1], " columna: ", list_token[i+2])
+    
+    elems.append(table)   
+    pdf.build(elems)
 validar_arch()
 listaerrores()
+listatoken()
 
 
 

@@ -1,0 +1,14 @@
+digraph stack {
+	rankdir=TB size=8
+	node [shape=record]
+	cont [label=<<table border='0' cellborder='1' color='blue' cellspacing='0'><tr><td>No.</td><td>Error</td><td>Fila</td><td>Columna</td></tr></table>>]
+	cont [label=<<table><tr><td>1</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>2</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>3</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>4</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>5</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>6</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>7</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>8</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+	cont [label=<<table><tr><td>9</td><td>foo</td><td>bar</td><td>baz</td></tr></table>>]
+}
