@@ -7,6 +7,7 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import Table
+import os
 
 
 
@@ -48,8 +49,8 @@ def afd2(): #meter en un for
     num = r"[0-9]"
     for x in range(2):
         if estado2 == 0:
-            print("est0")
-            print("el lex 2", lexema2)
+            #print("est0")
+            #print("el lex 2", lexema2)
             if lexema2.lower() == "inicio" or lexema2.lower() == "fin" or valor == 2:#estacionnombre usar arreglo
                 if lexema2.lower() == "color":
                     estado2 = 4
@@ -62,45 +63,45 @@ def afd2(): #meter en un for
             elif lexema2.lower() == "color":
                 estado2 = 4
         elif estado2 == 1:
-            print("st1")  
+            #print("st1")  
             if re.search(num,caractemp):
                 contenido += caractemp
-                print(" fin ini o estnom xd ", caractemp)
+                #print(" fin ini o estnom xd ", caractemp)
             else:
-                print("et nel ", caractemp)
+                #print("et nel ", caractemp)
                 list_error.append(caractemp)
                 list_error.append(cont_fil)
                 list_error.append(cont_col)
             estado2 = 0
         elif estado2 == 2:
-            print("st2")
+            #print("st2")
             if re.search(num,caractemp) or caractemp == ".":
                 contenido += caractemp
-                print("enteros y decimales", caractemp)
+                #print("enteros y decimales", caractemp)
             else:
-                print("no pes ", caractemp)
+                #print("no pes ", caractemp)
                 list_error.append(caractemp)
                 list_error.append(cont_fil)
                 list_error.append(cont_col)
             estado2 = 0
         elif estado2 == 3:
-            print("st3")
+            #print("st3")
             if (simbst1.find(caractemp) != -1) or re.search(num,caractemp) :   
                 contenido += caractemp 
-                print("rutnomb ", caractemp)
+                #print("rutnomb ", caractemp)
             else:
-                print("et nel ", caractemp)
+                #print("et nel ", caractemp)
                 list_error.append(caractemp)
                 list_error.append(cont_fil)
                 list_error.append(cont_col)
             estado2 = 0
         elif estado2 == 4:
-            print("st4")
+            #print("st4")
             if re.search(num,caractemp) or caractemp == "#":
                 contenido += caractemp
-                print("exa ", caractemp)
+                #print("exa ", caractemp)
             else: 
-                print("et nel ex ", caractemp)
+                #print("et nel ex ", caractemp)
                 list_error.append(caractemp)
                 list_error.append(cont_fil)
                 list_error.append(cont_col)
@@ -114,7 +115,7 @@ def palabra_reservada():
         if lexema.lower() == p_reserv[x]:
             #hay que ver si meter otro if para validar que nombre viene, si es de la estacion, de la rutoa o del mapa
             if lexema.lower() == lexema2:
-                print("ya estaba ", lexema2)
+                #print("ya estaba ", lexema2)
                 list_token.append(lexema)
                 list_token.append(cont_fil)
                 list_token.append(cont_col)
@@ -122,7 +123,7 @@ def palabra_reservada():
                 lexema = ""
                 #que afd2 se salgo o cambie el estado con un numero
             else:
-                print("lexema ",lexema, " encontrado")
+                #print("lexema ",lexema, " encontrado")
                 list_token.append(lexema)
                 list_token.append(cont_fil)
                 list_token.append(cont_col)
@@ -157,7 +158,7 @@ def afd(caract):
             
             estado = 2
         else:
-            print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+           # print("no ",caract," fila ",cont_fil, " columna ",cont_col)
             list_error.append(caract)
             list_error.append(cont_fil)
             list_error.append(cont_col)
@@ -171,7 +172,7 @@ def afd(caract):
             val= 1
             estado = 5
         else:
-            print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            #print("no ",caract," fila ",cont_fil, " columna ",cont_col)
             list_error.append(caract)
             list_error.append(cont_fil)
             list_error.append(cont_col)
@@ -185,7 +186,7 @@ def afd(caract):
             estado = 2
         elif caract == "/":
             val = 1
-            print("contenio es ", contenido) #para agregar hay que validar que no este vacio
+            #print("contenio es ", contenido) #para agregar hay que validar que no este vacio
             if len(contenido) == 0:
                 print("ta vacio contenido")
             else:
@@ -201,7 +202,7 @@ def afd(caract):
             val = 1
             estado = 2
         else:
-            print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            #print("no ",caract," fila ",cont_fil, " columna ",cont_col)
             list_error.append(caract)
             list_error.append(cont_fil)
             list_error.append(cont_col)
@@ -210,7 +211,7 @@ def afd(caract):
        # print("estado 3")
         if re.search(abc,caract):
             lexema += caract
-            print ("pal lex ", caract, " lex", lexema)
+            #print ("pal lex ", caract, " lex", lexema)
             palabra_reservada()
             estado = 2
         elif caract == ">":
@@ -218,7 +219,7 @@ def afd(caract):
         elif caract == "/":
             estado = 4
         else:
-            print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            #print("no ",caract," fila ",cont_fil, " columna ",cont_col)
             list_error.append(caract)
             list_error.append(cont_fil)
             list_error.append(cont_col)
@@ -231,7 +232,7 @@ def afd(caract):
             palabra_reservada()
             estado =2
         else:
-            print("no ",caract," fila ",cont_fil, " columna ",cont_col)
+            #print("no ",caract," fila ",cont_fil, " columna ",cont_col)
             list_error.append(caract)
             list_error.append(cont_fil)
             list_error.append(cont_col)
@@ -241,7 +242,7 @@ def afd(caract):
         if caract == "<":
             estado =2      
         elif re.search(abc,caract):#agregar otro elif para cuando sea puntos y numeros y tambiar ver si vienen algo fuera de las etiquetas
-            print ("almacena ", caract)  
+            #print ("almacena ", caract)  
             contenido += caract   
             #print(lexema)  
         else:
@@ -321,7 +322,7 @@ def listaerrores():
     elems.append(table)   
     pdf.build(elems)
   
-
+nombremapa = ""
 def listatoken():
     cont = 0
     fileName = "Reporte_2.pdf" 
@@ -346,6 +347,7 @@ def listatoken():
 
 def separalista():
     # 0 nombre del mapa 1 es ruta y 2 es estacion
+    global nombremapa
     num = 0
     for i in range(0,len(list_token),3):
         if str(list_token[i]).lower() == "ruta":
@@ -365,16 +367,41 @@ def separalista():
         elif num == 2:
             listaEstacion.append(list_token[i])
         else:
-            print("psible mapname", list_token[i])
+            if str(list_token[i]).lower() != "nombre":
+                nombremapa = list_token[i]
+                print("psible mapname", list_token[i])
     for i in range(0,len(listaRuta)):
         print(listaRuta[i])
     for i in range(0,len(listaEstacion)):
         print(listaEstacion[i])
 
+def dibujarmapa():
+    global nombremapa
+    archivo = open('Mapa.dot','w')
+    contenidoD = ""
+    for i in range(0,len(listaEstacion)-2):
+        if str(listaEstacion[i]).lower() == "nombre" and str(listaEstacion[i+2]).lower() == "nombre":
+            contenidoD += str(listaEstacion[i+1])+"[label=" 
+        elif str(listaEstacion[i]).lower() == "estado" and str(listaEstacion[i+2]).lower() == "estado":
+            pass
+        elif str(listaEstacion[i]).lower() == "color" and str(listaEstacion[i+2]).lower() == "color":
+            contenidoD += "fillcolor ="+'"'+listaEstacion[i]+'"'
+        else:
+            contenidoD += "\n"
+    print(contenidoD)
+    archivo.write('digraph D {\n')
+    archivo.write('label = '+'"'+nombremapa+'"')
+    archivo.write('rankdir=LR')
+    archivo.write('node [style= filled]')
+    archivo.write(contenido + '\n')
+    archivo.write('}')
+    archivo.close()
+    #os.system('dot -Tpdf Mapa.dot -o G1.pdf')
 validar_arch()
 listaerrores()
 listatoken()
 separalista()
+dibujarmapa()
 
 
 
