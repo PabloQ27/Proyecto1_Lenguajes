@@ -1,0 +1,177 @@
+<
+estacion&>
+    <estado>disponible</estado>
+    <color>#fff2cc</color
+    >
+    <nombre>
+    Terminus</nombre>
+</estacion>$$
+
+
+
+<estacion><estado>disponible</estado><color>#fff2cc</color><nombre>El_Reino\</nombre></estacion>"!
+
+
+<estacion>
+
+    <color>#fff2cc</color>
+                            <estado>disponible</estado>
+    <nombre>Alexandria</nombre>
+
+</estacion>
+
+<estacion>
+    <nombre>Hilltop</nombre>
+    <estado>disponible</estado>
+    <color>#fff2cc</color>
+</estacion>
+
+
+<ruta>
+    <nombre>Road1</nombre>
+
+    <inicio>terminus</inicio>
+
+    <fin>alexandria</fin>
+    <peso>1.1</peso>
+</ruta>
+
+--
+
+<estacion>
+
+<estado>
+disponible
+</estado>
+
+<color>
+#fff2cc
+</color>
+
+<nombre>
+OceanSide
+</nombre>
+</estacion>
+
+--
+
+<nombre>TWD_Map_FAKE</nombre>
+
+<nombre>TWD_Map</nombre>
+
+
+<ruta
+>
+    <nombre>
+    Road2</nombre>
+
+    <inicio>
+    alexandria</inicio>
+
+    <fin>
+    terminus</fin>
+    <peso>1.1 ;</peso>
+</ruta>
+
+"
+<ruta
+>
+
+    <inicio>alexandria</inicio>
+
+<fin>oceanside</fin>
+    <peso>5</peso>
+        <nombre>Road_3<%/nombre>
+</ruta
+>
+
+<ruta>
+    <nombre
+            >Road4</nombre>
+
+    <inicio>oceanside</inicio>
+
+    <fin>alexandria</fin>
+
+    <peso>5</peso>
+</
+ruta>
+
+
+#
+
+<ruta>
+    <nombre>Road5</nombre
+    >
+
+    <inicio>
+    oceanside</inicio>
+
+    <fin>       Hilltop</fin>
+    <peso>1.5</peso>
+</ruta>
+
+
+<ruta>
+    <nombre>Road6   </nombre>
+
+    <inicio>Hilltop
+    
+    
+    </inicio>
+
+    <fin>oceanside</fin>
+    <peso>1.5</peso>
+</ruta>
+
+!
+
+<
+ruta>
+    <nombre>Road7</nombre>
+
+    <inicio>El_Reino</inicio>
+
+    <fin>Hilltop</fin>
+    <peso>2.1</peso>
+</
+ruta>
+
+<ruta>
+    <nombre>Road8</nombre>
+
+    <inicio
+    >Hilltop</inicio>
+
+    <fin>El_Reino</fin>
+    <peso>  
+            2.1</peso>
+</ruta>
+
+
+$
+
+<ruta
+>
+    <nombre>Road_10</nombre>
+
+    <inicio>El_Reino</inicio>
+
+    <
+    fin>terminus</fin>
+    
+    <peso>1.9</peso>
+</ruta>
+
+<ruta>
+    <nombre>Road_9</nombre>
+
+    <inicio>
+    
+    terminus</inicio>
+
+    <fin>El_Reino</fin>
+    <peso>
+    
+    1.9</peso>
+</ruta>             ....

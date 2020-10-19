@@ -1,3 +1,16 @@
 digraph D {
-label = ""rankdir=LRnode [style= filled]
+label = "TR1F0RC3"
+rankdir=LR
+node [style= filled]
+fuego[label="fuego\ndisponible"fillcolor ="#FAD9D5"]
+hierba[label="hierba\ndisponible"fillcolor ="#B0E3E6"]
+estacion_x2[label="estacion_x2\ncerrada"fillcolor ="#DAE8FC"]
+estacion_x[label="estacion_x\ndisponible"fillcolor ="#DAE8FC"]
+fuego->hierba[label="rutax1\n1.0"]
+hierba->fuego[label="rutax2\n6"]
+hierba->agua[label="rutaz2\n6.21"]
+agua->hierba[label="rutaz1\n8"]
+agua->fuego[label="rutay2\n2"]
+fuego->agua[label="rutay1\n8"]
+
 }

@@ -1,8 +1,10 @@
-<estacion>
+    <estacIon>
     <nombre>estNorte</nombre>
     <estado>disponible</estado>
-    <color>#dae8fc</color>
-</estacion>
+    <
+    color
+    >#dae8fc</color>
+    </estacion>
 
 <estacion>
     <nombre>estOeste</nombre>
@@ -16,19 +18,6 @@
     <color>#dae8fc</color>
 </estacion>
 
-<estACION>
-    <nombre>estCentral</nombre>
-    <estado>disponible</estado>
-    <color>#ffe6cc</color>
-</estACION>
-
-<ruta>
-    <nombre>ruta_central1</nombre>
-    <peso>1.2</peso>
-    <inicio>EST_ESTE</inicio>
-    <fin>estCENTRAL</fin>
-</ruta>
-
 <ESTACION>
     <nombre>SUR</nombre>
     <estado>disponible</estado>
@@ -36,14 +25,21 @@
 </ESTACION>
 
 <ruta>
+    <nombre>ruta_central1</nombre>
+    <peso>2.5</peso>
+    <inicio>EST_ESTE</inicio>
+    <fin>ESTOESTE</fin>
+</ruta>
+
+<ruta>
+    <fin>est_este</fin>
+    <peso>1.5</peso>
+    <inicio>estoeste</inicio>
     <nombre>ruta_central2</nombre>
-    <peso>1.3</peso>
-    <inicio>estCENTRAL</inicio>
-    <fin>estOeste</fin>
 </ruta>
 
 
-<nombre>Ciudad_Guatemala2</nombre>
+<nombre>Ciudad_Guatemala</nombre>
 
 <ruta>
     <inicio>estNorte</inicio>
@@ -51,24 +47,28 @@
     <peso>8</peso>
     <nombre>
     rutaNO
-    </nombre>
+    <
+    /
+    nombre
+    >
 </ruta>
 
 <ruta>
     <inicio>estNorte</inicio>
     <fin>est_ESTE</fin>
-    <peso>3.00001</peso>
+    <peso>5.00001</peso>
     <nombre>RUTA_NE</nombre>
 </ruta>
 
 
 
-                    <ruta>
-                        <INICIO>ESTOESTE</INICIO>
-                        <fin>sur</fin>
-                        <peso>2.4</PESO>
-                        <NOMBRE>ruta_OS</NOMBRE>
-                    </ruta>
+
+<ruta>
+    <INICIO>ESTOESTE</INICIO>
+    <fin>sur</fin>
+    <peso>2.4</PESO>
+    <NOMBRE>ruta_OS</NOMBRE>
+</ruta>
 
 
 <ruta>

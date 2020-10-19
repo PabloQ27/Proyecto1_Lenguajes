@@ -26,10 +26,10 @@
 </
 estacion>
 
-    <ruta>
+<ruta>
     <fin>HIERBA</fin>
     <peso>1.0</peso><inicio>FUEGO</inicio><nombre>rutaX1</nombre>
-    </ruta>
+</ruta>
 
 <ruta$>
     <fin>Fuego</fin>
@@ -52,17 +52,17 @@ estacion>
     <peso>8</peso>
 
 
-</ruta>*
+</ruta>
 
 <ruta>
     <nombre>rutaY2</nombre>
 
-    <inicio>"AgUA</inicio>
+    <inicio>AgUA</inicio>
 
     <fin>fuego</fin>
     <peso>2</peso>
 
 
-</ruta>@
+</ruta>
 
 <ruta><nombre>rutaY1</nombre><inicio>FUEGO</inicio><fin>AGUA</fin><peso>8</peso></ruta>.

@@ -11,17 +11,17 @@ import os
 
 
 
-"""
-clase1 = clase()
-clase2 = clase()
+
+
 print(clase.num2)
 print("-------------------------------------------------------")
 print("Nombre: Pablo Rufino Quevedo Berdúo  \nCarne: 201701081" )
 print("-------------------------------------------------------")
 print("BIENVENIDO \nIngrese el numero de una opción o exit para salir")
-print("1.  Cargar Archivo    \n2.  Graficar Operacion \n3. Graficar Ruta   \n4.  Salir")
-palabras reservada ruta,nombre,peso,inicio,fin,estacion,estado,color
-"""
+print("1.  Cargar Archivo    \n2.  Graficar Ruta \n3.  Graficar Mapa   \n4.  Salir")
+#palabras reservada ruta,nombre,peso,inicio,fin,estacion,estado,color
+
+
 
 p_reserv = ["ruta", "nombre", "peso", "inicio", "fin", "estacion", "estado", "color"]
 cont_col = 0
@@ -64,7 +64,7 @@ def afd2(): #meter en un for
                 estado2 = 4
         elif estado2 == 1:
             #print("st1")  
-            if re.search(num,caractemp):
+            if re.search(num,caractemp) or caractemp == "_":
                 contenido += caractemp
                 #print(" fin ini o estnom xd ", caractemp)
             else:
@@ -154,8 +154,7 @@ def afd(caract):
     simb ="@#_"
     if estado == 0:
         #print("estado 0")
-        if caract == "<":
-            
+        if caract == "<":                   
             estado = 2
         else:
            # print("no ",caract," fila ",cont_fil, " columna ",cont_col)
@@ -166,7 +165,6 @@ def afd(caract):
     elif estado == 1:
        # print("estado 1")
         if caract == "<":
-            val = 1
             estado = 2
         elif caract == ">":
             val= 1
@@ -280,28 +278,6 @@ def validar_arch():  # validacion de la extension correcta
     else:
         print("la ruta ingresada es incorrecta")
 
-def menu():
-    opc = input()
-    fin = True
-    while fin:
-        if opc == "1":           
-            print("1.  Cargar Archivo    \n2.  Graficar Operacion \n3.  Graficar Ruta   \n4.  Salir")
-            menu()
-            break
-        elif opc == "2":           
-            print("1.  Cargar Archivo    \n2.  Graficar Operacion \n3.  Graficar Ruta   \n4.  Salir")           
-            break
-        elif opc == "3":
-            #agregar metodo para mostrar la ruta
-            print("1.  Cargar Archivo    \n2.  Graficar Operacion \n3.  Graficar Ruta   \n4.  Salir")
-        elif opc == "exit":
-            print("pa juera")
-            fin = False
-        else:
-            print("Número inválido, vuelva a intentar.")
-            opc = input()
-
-
 def listaerrores():
     cont = 0     
     fileName2 = "Reporte_1.pdf"
@@ -309,7 +285,7 @@ def listaerrores():
     fileName2,
     pagesize=letter
     )
-    elems = []
+    
     data = []
     fila=["No.","Error","Fila","Columna"]
     data.append(fila) 
@@ -318,7 +294,8 @@ def listaerrores():
         fila =[str(cont),str(list_error[i]),str(list_error[i+1]),str(list_error[i+2])]
         data.append(fila)
         table = Table(data)
-        #print(cont,"  ",list_error[i], " fila: ",list_error[i+1], " columna: ", list_error[i+2])
+        print(cont,"  ",list_error[i], " fila: ",list_error[i+1], " columna: ", list_error[i+2])
+    elems = []
     elems.append(table)   
     pdf.build(elems)
   
@@ -340,8 +317,7 @@ def listatoken():
         fila =[str(cont),str(list_token[i]),str(list_token[i+1]),str(list_token[i+2])]
         data.append(fila)
         table = Table(data)
-        #print(cont,"  ",list_token[i], " fila: ",list_token[i+1], " columna: ", list_token[i+2])
-    
+        #print(cont,"  ",list_token[i], " fila: ",list_token[i+1], " columna: ", list_token[i+2])  
     elems.append(table)   
     pdf.build(elems)
 
@@ -370,38 +346,106 @@ def separalista():
             if str(list_token[i]).lower() != "nombre":
                 nombremapa = list_token[i]
                 print("psible mapname", list_token[i])
+    listaEstacion.append("---")
+    listaRuta.append("---")
     for i in range(0,len(listaRuta)):
         print(listaRuta[i])
     for i in range(0,len(listaEstacion)):
         print(listaEstacion[i])
 
+arreglo = ["a","b","c"]
+arreglo2 = ["a","b","c","d"]
+
 def dibujarmapa():
-    global nombremapa
+    global nombremapa,arreglo,arreglo2
     archivo = open('Mapa.dot','w')
     contenidoD = ""
-    for i in range(0,len(listaEstacion)-2):
+    for i in range(0,len(listaEstacion)):
         if str(listaEstacion[i]).lower() == "nombre" and str(listaEstacion[i+2]).lower() == "nombre":
-            contenidoD += str(listaEstacion[i+1])+"[label=" 
-        elif str(listaEstacion[i]).lower() == "estado" and str(listaEstacion[i+2]).lower() == "estado":
-            pass
+            arreglo[0]= str(listaEstacion[i+1])
+        elif str(listaEstacion[i]).lower() == "estado" and str(listaEstacion[i+2]).lower() == "estado":         
+            arreglo[1] = str(listaEstacion[i+1])           
         elif str(listaEstacion[i]).lower() == "color" and str(listaEstacion[i+2]).lower() == "color":
-            contenidoD += "fillcolor ="+'"'+listaEstacion[i]+'"'
-        else:
-            contenidoD += "\n"
-    print(contenidoD)
+            arreglo[2]= listaEstacion[i+1]
+        elif (str(listaEstacion[i]).lower() == "nombre" or str(listaEstacion[i]).lower() == "estado" or str(listaEstacion[i]).lower() == "color") and str(listaEstacion[i+1]).lower() == "estacion":
+            contenidoD += str(arreglo[0]).lower()+"[label="+ '"'+str(arreglo[0]).lower()+"\\n"+str(arreglo[1]).lower()+'"'+"fillcolor ="+'"'+str(arreglo[2]).upper()+'"'+"]"+'\n'
+            arreglo[0] = ""
+            arreglo[1] = ""
+            arreglo[2] = ""
+    
+    for i in range(0,len(listaRuta)):
+        if str(listaRuta[i]).lower() == "inicio" and str(listaRuta[i+2]).lower() == "inicio":
+            arreglo2[0]= str(listaRuta[i+1])
+        elif str(listaRuta[i]).lower() == "fin" and str(listaRuta[i+2]).lower() == "fin":         
+            arreglo2[1] = str(listaRuta[i+1])           
+        elif str(listaRuta[i]).lower() == "nombre" and str(listaRuta[i+2]).lower() == "nombre":
+            arreglo2[2]= listaRuta[i+1]
+        elif str(listaRuta[i]).lower() == "peso" and str(listaRuta[i+2]).lower() == "peso":
+            arreglo2[3]= listaRuta[i+1]
+        elif (str(listaRuta[i]).lower() == "nombre" or str(listaRuta[i]).lower() == "fin" or str(listaRuta[i]).lower() == "inicio" or str(listaRuta[i]).lower() == "peso") and str(listaRuta[i+1]).lower() == "ruta":
+            contenidoD += str(arreglo2[0]).lower()+"->"+str(arreglo2[1]).lower()+"[label="+'"'+str(arreglo2[2]).lower()+"\\n"+str(arreglo2[3]).lower()+'"'+"]"+'\n'
+            arreglo2[0] = ""
+            arreglo2[1] = ""
+            arreglo2[2] = ""
+            arreglo2[3] = ""
+    
+    #print(contenidoD)
     archivo.write('digraph D {\n')
-    archivo.write('label = '+'"'+nombremapa+'"')
-    archivo.write('rankdir=LR')
-    archivo.write('node [style= filled]')
-    archivo.write(contenido + '\n')
+    archivo.write('label = '+'"'+nombremapa+'"'+'\n')
+    archivo.write('rankdir=LR'+'\n')
+    archivo.write("node [style= filled]"+'\n')
+    archivo.write(contenidoD+'\n' )
     archivo.write('}')
     archivo.close()
-    #os.system('dot -Tpdf Mapa.dot -o G1.pdf')
+    os.system('dot -Tpdf Mapa.dot -o Mapa.pdf')
+
+def menu():
+    opc = input()
+    fin = True
+    while fin:
+        if opc == "1":                  
+            print("Ingrese la ruta del archivo")     
+            validar_arch()
+            listaerrores()
+            listatoken()
+            separalista()
+            print("1.  Cargar Archivo    \n2.  Graficar Ruta \n3.  Graficar Mapa   \n4.  Salir")
+            menu()
+            break
+        elif opc == "2":           
+            print("1.  Cargar Archivo    \n2.  Graficar Ruta \n3.  Graficar Mapa  \n4.  Salir")    
+            menu()       
+            break
+        elif opc == "3":
+            #agregar metodo para mostrar la ruta
+            
+            if len(list_token) == 0:
+                print("No hay archivo para graficar")
+            else:
+                dibujarmapa()
+                print("Mapa Generado")
+                
+            print("1.  Cargar Archivo    \n2.  Graficar Ruta \n3.  Graficar Mapa  \n4.  Salir")
+            menu()
+            break
+            
+        elif opc == "4":
+            print("pa juera")
+            fin = False
+        else:
+            print("Número inválido, vuelva a intentar.")
+            opc = input()
+
+
+menu()
+"""
 validar_arch()
 listaerrores()
 listatoken()
 separalista()
 dibujarmapa()
+"""
+
 
 
 
